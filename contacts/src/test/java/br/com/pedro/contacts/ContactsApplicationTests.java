@@ -1,10 +1,10 @@
-package br.com.pedro.contatos;
+package br.com.pedro.contacts;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ContatosApplicationTests {
+class ContactsApplicationTests {
 
 	@Test
 	void contextLoads() {
