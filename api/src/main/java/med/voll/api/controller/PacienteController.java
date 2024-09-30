@@ -1,9 +1,11 @@
 package med.voll.api.controller;
 
 
-import med.voll.api.medico.DataGetMedicoDTO;
+import jakarta.transaction.Transactional;
 import med.voll.api.paciente.DataGetPacientDTO;
+import med.voll.api.paciente.PacienteRepository;
 import med.voll.api.paciente.PatientDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -18,12 +20,16 @@ import java.util.List;
 @RequestMapping("/pacientes")
 public class PacienteController {
 
+    @Autowired
+    private PacienteRepository repository;
+
+    @Transactional
     @PostMapping
     public void registerPatient(@RequestBody PatientDTO data){
         System.out.println(data);
     }
 
-    public List<DataGetPacientDTO> listPatient(@PageableDefault(page = 1,sort = {"nome"}) Pageable pagination){
-
+    public Page<DataGetPacientDTO> listPatient(@PageableDefault(page = 1,sort = {"nome"}) Pageable pagination){
+        return repository.findAll(pagination).map((DataGetPacientDTO::new));
     }
 }
